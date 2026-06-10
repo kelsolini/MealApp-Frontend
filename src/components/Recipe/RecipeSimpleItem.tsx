@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import type { IRecipe } from "../../interfaces/Recipe/IRecipe";
 import { FavoriteButton } from "./FavoriteButton"; // juster stien til der filen faktisk ligger
-import { API_URL } from "../../config";
+import { getImageUrl } from "../../config";
 
 interface RecipeItemProps {
     recipe: IRecipe;
@@ -14,7 +14,7 @@ const RecipeSimpleItem = ({ recipe }: RecipeItemProps) => {
                 {/* Bilde */}
                 <div className="relative aspect-square overflow-hidden">
                     <img
-                        src={`${API_URL}/images-recipe/${recipe.image}`}
+                        src={getImageUrl(recipe.image)}
                         alt={recipe.title}
                         className="w-full h-full object-cover transition-transform group-hover:scale-101"
                     />

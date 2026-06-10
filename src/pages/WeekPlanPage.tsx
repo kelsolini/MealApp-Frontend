@@ -4,7 +4,7 @@ import { useWeekPlan, DAYS, type WeekDay } from "../contexts/WeekPlanContext";
 import { useShoppingList } from "../contexts/ShoppingListContext";
 import RecipePickerModal from "../components/WeekPlan/RecipePickerModal";
 import type { IRecipe } from "../interfaces/Recipe/IRecipe";
-import { API_URL } from "../config";
+import { getImageUrl } from "../config";
 
 const SHORT: Record<WeekDay, string> = {
     mandag: "Man", tirsdag: "Tir", onsdag: "Ons",
@@ -83,7 +83,7 @@ const WeekPlanPage = () => {
                                     <div className="aspect-video bg-stone-100 overflow-hidden flex-shrink-0">
                                         {recipe.image ? (
                                             <img
-                                                src={`${API_URL}/images-recipe/${recipe.image}`}
+                                                src={getImageUrl(recipe.image)}
                                                 alt={recipe.title}
                                                 className="w-full h-full object-cover"
                                             />

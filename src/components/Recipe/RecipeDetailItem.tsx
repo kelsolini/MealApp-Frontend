@@ -8,7 +8,7 @@ import type { IRecipe } from "../../interfaces/Recipe/IRecipe";
 import { FavoriteButton } from "./FavoriteButton";
 import ShoppingListModal from "./ShoppingListModal";
 import { useWeekPlan, DAYS, type WeekDay } from "../../contexts/WeekPlanContext";
-import { API_URL } from "../../config";
+import { getImageUrl } from "../../config";
 
 interface RecipeDetailItemProps {
     recipe: IRecipe;
@@ -92,7 +92,7 @@ const RecipeDetailItem = ({ recipe }: RecipeDetailItemProps) => {
                 <div className="relative aspect-square rounded-2xl overflow-hidden bg-stone-200">
                     {recipe.image && (
                         <img
-                            src={`${API_URL}/images-recipe/${recipe.image}`}
+                            src={getImageUrl(recipe.image)}
                             alt={recipe.title}
                             className="w-full h-full object-cover"
                         />

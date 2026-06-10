@@ -74,17 +74,22 @@ const getRecipeByTitle = async (title: string): Promise<IRecipeListResponse> => 
     }
 }
 
+const uploadImage = async (file: File): Promise<string> => {
+    const formData = new FormData();
+    formData.append("file", file);
+    const response = await axios.post(endpointImageUpload, formData, {
+        headers: { "Content-Type": "multipart/form-data" }
+    });
+    return response.data.url;
+};
+
 /* PUT RECIPE */
 const putRecipe = async (editedRecipe: IRecipe, newImage: File | null) => {
     try {
-        const response = await axios.put(endpoint, editedRecipe);
-        if (newImage) {
-            const formData = new FormData();
-            formData.append("file", newImage);
-            await axios.post(endpointImageUpload, formData, {
-                headers: { "Content-Type": "multipart/form-data" }
-            });
-        }
+        const recipeToSave = newImage
+            ? { ...editedRecipe, image: await uploadImage(newImage) }
+            : editedRecipe;
+        const response = await axios.put(endpoint, recipeToSave);
         return {
             success: true,
             data: response.data
@@ -100,14 +105,10 @@ const putRecipe = async (editedRecipe: IRecipe, newImage: File | null) => {
 /* POST RECIPE */
 const postRecipe = async (recipe: IRecipe, image: File | null) => {
     try {
-        const response = await axios.post(endpoint, recipe);
-        if (image) {
-            const formData = new FormData();
-            formData.append("file", image);
-            await axios.post(endpointImageUpload, formData, {
-                headers: { "Content-Type": "multipart/form-data" }
-            });
-        }
+        const recipeToSave = image
+            ? { ...recipe, image: await uploadImage(image) }
+            : recipe;
+        const response = await axios.post(endpoint, recipeToSave);
         return {
             success: true,
             data: response.data

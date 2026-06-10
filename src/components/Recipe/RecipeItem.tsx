@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import type { IRecipe } from "../../interfaces/Recipe/IRecipe";
 import { RecipeContext } from "../../contexts/RecipeContext";
 import type { IRecipeContext } from "../../interfaces/Context/IRecipeContext";
-import { API_URL } from "../../config";
+import { getImageUrl } from "../../config";
 
 const scale = (value: number, factor: number) =>
     Math.round(value * factor * 10) / 10;
@@ -38,7 +38,7 @@ const RecipeItem = ({ recipe }: { recipe: IRecipe }) => {
         <article className="bg-white border border-gray-200 rounded-lg p-6">
             {recipe.image && (
                 <img
-                    src={`${API_URL}/images-recipe/${recipe.image}`}
+                    src={getImageUrl(recipe.image)}
                     alt={recipe.title}
                     className="w-full h-48 object-cover rounded-md mb-4"
                 />
