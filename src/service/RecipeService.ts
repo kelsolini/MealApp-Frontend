@@ -1,9 +1,10 @@
 import axios from "axios";
 import type { IRecipe } from "../interfaces/Recipe/IRecipe";
 import type { IRecipeListResponse, IRecipeSingleResponse } from "../interfaces/Response/ResponseInterfaces";
+import { API_URL } from "../config";
 
-const endpoint = "http://localhost:5149/api/recipe";
-const endpointImageUpload = "http://localhost:5149/api/recipeimageupload";
+const endpoint = `${API_URL}/api/recipe`;
+const endpointImageUpload = `${API_URL}/api/recipeimageupload`;
 
 /* GET ALL RECIPES */
 const getAllRecipes = async (): Promise<IRecipeListResponse> => {

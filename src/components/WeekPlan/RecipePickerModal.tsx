@@ -3,6 +3,7 @@ import { X, Search } from "lucide-react";
 import { RecipeContext } from "../../contexts/RecipeContext";
 import type { IRecipe } from "../../interfaces/Recipe/IRecipe";
 import type { WeekDay } from "../../contexts/WeekPlanContext";
+import { API_URL } from "../../config";
 
 interface Props {
     isOpen: boolean;
@@ -96,7 +97,7 @@ const RecipePickerModal = ({ isOpen, onClose, day, onSelect }: Props) => {
                                         <div className="aspect-video bg-stone-100 overflow-hidden">
                                             {recipe.image ? (
                                                 <img
-                                                    src={`http://localhost:5149/images-recipe/${recipe.image}`}
+                                                    src={`${API_URL}/images-recipe/${recipe.image}`}
                                                     alt={recipe.title}
                                                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
                                                 />

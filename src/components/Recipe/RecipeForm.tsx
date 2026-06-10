@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import type { IRecipe } from "../../interfaces/Recipe/IRecipe";
 import type { IIngredients } from "../../interfaces/Recipe/IIngredients";
+import { API_URL } from "../../config";
 
 const TYPES = ["middag", "frokost", "lunsj", "dessert", "snack"];
 const CATEGORIES = ["hverdagsmat", "festmat", "sunn", "rask", "vegetar", "annet"];
@@ -96,7 +97,7 @@ const RecipeForm = ({ initialData, onSubmit, submitLabel }: Props) => {
     };
 
     const currentImageUrl = imagePreview
-        ?? (initialData?.image ? `http://localhost:5149/images-recipe/${initialData.image}` : null);
+        ?? (initialData?.image ? `${API_URL}/images-recipe/${initialData.image}` : null);
 
     return (
         <div className="space-y-6">

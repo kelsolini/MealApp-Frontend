@@ -2,7 +2,7 @@ import { useState, useEffect, type ReactNode, createContext } from "react";
 import type { IRecipe } from "../interfaces/Recipe/IRecipe";
 import type { IRecipeContext } from "../interfaces/Context/IRecipeContext";
 import type { IRecipeSingleResponse, IDefaultResponse, IRecipeListResponse } from "../interfaces/Response/ResponseInterfaces";
-import recipeService from "../service/recipeService";
+import recipeService from "../service/RecipeService";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const RecipeContext = createContext<IRecipeContext | null>(null);
