@@ -1,0 +1,34 @@
+import { Link } from "react-router-dom";
+import type { IRecipe } from "../../interfaces/Recipe/IRecipe";
+import { FavoriteButton } from "./FavoriteButton"; // juster stien til der filen faktisk ligger
+
+interface RecipeItemProps {
+    recipe: IRecipe;
+}
+
+const RecipeSimpleItem = ({ recipe }: RecipeItemProps) => {
+    return (
+        <Link to={`/oppskrifter/${recipe.id}`} className="block group">
+            <article className="bg-white rounded-2xl overflow-hidden shadow-sm border border-stone-200 transition-all hover:shadow-md hover:-translate-y-0.5">
+                {/* Bilde */}
+                <div className="relative aspect-square overflow-hidden">
+                    <img
+                        src={`http://localhost:5149/images-recipe/${recipe.image}`}
+                        alt={recipe.title}
+                        className="w-full h-full object-cover transition-transform group-hover:scale-101"
+                    />
+                    <FavoriteButton recipeId={recipe.id} className="absolute top-3 right-3" />
+                </div>
+
+                {/* Innhold */}
+                <div className="p-4">
+                    <h3 className="text-xl font-serif font-semibold text-stone-900">
+                        {recipe.title}
+                    </h3>
+                </div>
+            </article>
+        </Link>
+    );
+};
+
+export default RecipeSimpleItem;
