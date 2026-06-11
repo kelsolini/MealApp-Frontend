@@ -106,7 +106,7 @@ const RecipePickerModal = ({ isOpen, onClose, day, onSelect }: Props) => {
                                             )}
                                         </div>
                                         <div className="p-2">
-                                            <p className="text-sm font-medium text-stone-800 truncate">{recipe.title}</p>
+                                            <p className="text-sm font-medium text-stone-800 line-clamp-2 min-h-[2.5rem]">{recipe.title}</p>
                                             <p className="text-xs text-stone-400 capitalize">{recipe.type}</p>
                                         </div>
                                     </button>
