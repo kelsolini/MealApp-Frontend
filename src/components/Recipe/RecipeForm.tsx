@@ -31,6 +31,7 @@ const RecipeForm = ({ initialData, onSubmit, submitLabel }: Props) => {
     const [image, setImage] = useState<File | null>(null);
     const [imagePreview, setImagePreview] = useState<string | null>(null);
     const [statusMessage, setStatusMessage] = useState("");
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,6 +57,7 @@ const RecipeForm = ({ initialData, onSubmit, submitLabel }: Props) => {
         setMethod(prev => prev.filter((_, i) => i !== index));
 
     const handleSubmit = async () => {
+        if (isSubmitting) return;
         const trimmedTitle = title.trim();
         if (!trimmedTitle) return setStatusMessage("Fyll inn tittel");
         if (!portions || portions <= 0) return setStatusMessage("Porsjoner må være over 0");
@@ -74,25 +76,14 @@ const RecipeForm = ({ initialData, onSubmit, submitLabel }: Props) => {
             method: method.filter(step => step.trim() !== ""),
         };
 
-        const response = await onSubmit(recipe, image);
-        if (response.success) {
-            setStatusMessage(initialData ? "Oppskrift oppdatert!" : "Oppskrift lagret!");
-            if (!initialData) {
-                setTitle("");
-                setType("middag");
-                setCategory("hverdagsmat");
-                setCuisine("");
-                setSource("");
-                setPortions("");
-                setDescription("");
-                setIngredients([emptyIngredient()]);
-                setMethod([""]);
-                setImage(null);
-                setImagePreview(null);
-                if (fileInputRef.current) fileInputRef.current.value = "";
+        setIsSubmitting(true);
+        try {
+            const response = await onSubmit(recipe, image);
+            if (!response.success) {
+                setStatusMessage("Noe gikk galt");
             }
-        } else {
-            setStatusMessage("Noe gikk galt");
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
@@ -232,8 +223,9 @@ const RecipeForm = ({ initialData, onSubmit, submitLabel }: Props) => {
             )}
 
             <button type="button" onClick={handleSubmit}
-                className="w-full py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
-                {submitLabel}
+                disabled={isSubmitting}
+                className="w-full py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed">
+                {isSubmitting ? "Lagrer..." : submitLabel}
             </button>
         </div>
     );

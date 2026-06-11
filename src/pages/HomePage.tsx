@@ -11,7 +11,9 @@ const HomePage = () => {
         <main className="grid grid-cols-12 gap-4 p-4">
             <div className="col-span-12">
                 <FavoritesList recipes={recipes} />
-                <RecipeList recipes={recipes} />
+                <div className="mt-6">
+                    <RecipeList recipes={recipes} />
+                </div>
             </div>
         </main>
     );
