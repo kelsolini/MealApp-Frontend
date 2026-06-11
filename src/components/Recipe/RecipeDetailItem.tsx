@@ -119,7 +119,7 @@ const RecipeDetailItem = ({ recipe }: RecipeDetailItemProps) => {
                         </Link>
                         {recipe.cuisine && (
                             <Link
-                                to={`/recipes?type=${encodeURIComponent(recipe.cuisine)}`}
+                                to={`/recipes?cuisine=${encodeURIComponent(recipe.cuisine)}`}
                                 className="px-3 py-1 bg-stone-100 rounded-full text-sm hover:bg-stone-200 transition-colors"
                             >
                                 {recipe.cuisine}

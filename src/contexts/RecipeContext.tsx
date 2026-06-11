@@ -70,6 +70,15 @@ export const RecipeProvider = ({ children }: Props) => {
         }
     }
 
+    /* GET RECIPES BY CUISINE */
+    const fetchRecipesByCuisine = async (cuisine: string): Promise<IRecipeListResponse> => {
+        const filtered = recipes.filter(r =>
+            r.cuisine?.toLowerCase() === cuisine.toLowerCase()
+        );
+        setFilteredRecipes(filtered);
+        return { success: true, data: filtered };
+    }
+
     /* PUT RECIPE */
     const putRecipe = async (editedRecipe: IRecipe, image: File | null): Promise<IDefaultResponse> => {
         try {
@@ -111,6 +120,7 @@ export const RecipeProvider = ({ children }: Props) => {
             fetchRecipeByTitle,
             fetchRecipesByType,
             fetchRecipesByCategory,
+            fetchRecipesByCuisine,
             titleRecipes,
             filteredRecipes,
             putRecipe,
