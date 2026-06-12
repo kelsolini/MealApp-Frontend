@@ -124,7 +124,7 @@ const RecipeDetailItem = ({ recipe }: RecipeDetailItemProps) => {
                             >
                                 {recipe.cuisine}
                             </Link>
-                        )}''
+                        )}
                     </div>
 
                     {/* Tittel */}
