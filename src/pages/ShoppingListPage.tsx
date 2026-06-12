@@ -27,7 +27,7 @@ const ShoppingListPage = () => {
                     return next;
                 });
                 timeoutRefs.current.delete(id);
-            }, 400);
+            }, 200);
             timeoutRefs.current.set(id, timeout);
         } else {
             const existing = timeoutRefs.current.get(id);
