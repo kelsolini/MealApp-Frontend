@@ -9,8 +9,6 @@ export interface IRecipeContext {
     fetchRecipeById: (id: number) => Promise<IRecipeSingleResponse>;
     fetchRecipeByTitle: (title: string) => Promise<IRecipeListResponse>;
     fetchRecipesByType: (type: string) => Promise<IRecipeListResponse>;
-    fetchRecipesByCategory: (category: string) => Promise<IRecipeListResponse>;
-    fetchRecipesByCuisine: (cuisine: string) => Promise<IRecipeListResponse>;
     putRecipe: (editedRecipe: IRecipe, image: File | null) => Promise<IDefaultResponse>;
     saveRecipe: (newRecipe: IRecipe, image: File | null) => Promise<IDefaultResponse>;
     deleteRecipe: (id: number) => Promise<IDefaultResponse>;
