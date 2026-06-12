@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect, type ReactNode } from "react";
+import { mergeShoppingItems } from "../utils/mergeShoppingItems";
 
 export interface ShoppingListItem {
     id: string;
@@ -31,12 +32,7 @@ export const ShoppingListProvider = ({ children }: { children: ReactNode }) => {
     }, [items]);
 
     const addItems = (newItems: Omit<ShoppingListItem, "id" | "checked">[]) => {
-        const toAdd: ShoppingListItem[] = newItems.map(item => ({
-            ...item,
-            id: `${Date.now()}-${Math.random()}`,
-            checked: false,
-        }));
-        setItems(prev => [...prev, ...toAdd]);
+        setItems(prev => mergeShoppingItems(prev, newItems));
     };
 
     const toggleItem = (id: string) =>
