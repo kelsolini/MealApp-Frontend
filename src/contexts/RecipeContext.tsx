@@ -61,13 +61,11 @@ export const RecipeProvider = ({ children }: Props) => {
 
     /* GET RECIPES BY CATEGORY */
     const fetchRecipesByCategory = async (category: string): Promise<IRecipeListResponse> => {
-        const response = await recipeService.getRecipesByCategory(category);
-        if (response.success && response.data) {
-            setFilteredRecipes(response.data);
-            return { success: true, data: response.data }
-        } else {
-            return { success: false, data: null }
-        }
+        const filtered = recipes.filter(r =>
+            r.category.toLowerCase() === category.toLowerCase()
+        );
+        setFilteredRecipes(filtered);
+        return { success: true, data: filtered };
     }
 
     /* GET RECIPES BY CUISINE */
