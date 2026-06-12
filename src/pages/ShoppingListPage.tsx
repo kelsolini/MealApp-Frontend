@@ -1,12 +1,51 @@
+import { useState, useRef, useEffect } from "react";
 import { Trash2, ShoppingCart, CheckCheck } from "lucide-react";
 import { useShoppingList } from "../contexts/ShoppingListContext";
 import Button from "../components/Shared/Button";
 
 const ShoppingListPage = () => {
     const { items, toggleItem, removeItem, clearList } = useShoppingList();
+    const [pendingMove, setPendingMove] = useState<Set<string>>(new Set());
+    const timeoutRefs = useRef<Map<string, ReturnType<typeof setTimeout>>>(new Map());
 
-    const unchecked = items.filter(item => !item.checked);
-    const checked = items.filter(item => item.checked);
+    useEffect(() => {
+        const refs = timeoutRefs.current;
+        return () => refs.forEach(t => clearTimeout(t));
+    }, []);
+
+    const handleToggle = (id: string) => {
+        const item = items.find(i => i.id === id);
+        if (!item) return;
+
+        if (!item.checked) {
+            toggleItem(id);
+            setPendingMove(prev => new Set(prev).add(id));
+            const timeout = setTimeout(() => {
+                setPendingMove(prev => {
+                    const next = new Set(prev);
+                    next.delete(id);
+                    return next;
+                });
+                timeoutRefs.current.delete(id);
+            }, 400);
+            timeoutRefs.current.set(id, timeout);
+        } else {
+            const existing = timeoutRefs.current.get(id);
+            if (existing !== undefined) {
+                clearTimeout(existing);
+                timeoutRefs.current.delete(id);
+            }
+            setPendingMove(prev => {
+                const next = new Set(prev);
+                next.delete(id);
+                return next;
+            });
+            toggleItem(id);
+        }
+    };
+
+    const unchecked = items.filter(item => !item.checked || pendingMove.has(item.id));
+    const checked = items.filter(item => item.checked && !pendingMove.has(item.id));
 
     return (
         <main className="max-w-2xl mx-auto px-4 py-8">
@@ -26,43 +65,49 @@ const ShoppingListPage = () => {
                 </div>
             ) : (
                 <div className="space-y-8">
-                    {/* Varer som ikke er handlet */}
                     {unchecked.length > 0 && (
                         <section aria-label="Varer som gjenstår">
                             <ul className="divide-y divide-stone-100 bg-white rounded-2xl border border-stone-100 overflow-hidden">
-                                {unchecked.map(item => (
-                                    <li key={item.id} className="flex items-center gap-4 px-5 py-3.5">
-                                        <input
-                                            type="checkbox"
-                                            id={`item-${item.id}`}
-                                            checked={false}
-                                            onChange={() => toggleItem(item.id)}
-                                            className="w-5 h-5 rounded border-stone-300 accent-red-900 cursor-pointer"
-                                            aria-label={`Merk ${item.name} som handlet`}
-                                        />
-                                        <label
-                                            htmlFor={`item-${item.id}`}
-                                            className="flex-1 flex items-center justify-between cursor-pointer"
+                                {unchecked.map(item => {
+                                    const isPending = pendingMove.has(item.id);
+                                    return (
+                                        <li
+                                            key={item.id}
+                                            className={`flex items-center gap-4 px-5 py-3.5 transition-all duration-300${isPending ? " opacity-50" : ""}`}
                                         >
-                                            <span className="text-stone-800">{item.name}</span>
-                                            <span className="text-stone-400 text-sm">
-                                                {item.amount > 0 ? `${item.amount} ${item.unit}` : item.unit}
-                                            </span>
-                                        </label>
-                                        <button
-                                            onClick={() => removeItem(item.id)}
-                                            aria-label={`Fjern ${item.name} fra handlelisten`}
-                                            className="p-1.5 rounded-full hover:bg-red-50 hover:text-red-600 text-stone-300 transition-colors"
-                                        >
-                                            <Trash2 className="w-4 h-4" />
-                                        </button>
-                                    </li>
-                                ))}
+                                            <input
+                                                type="checkbox"
+                                                id={`item-${item.id}`}
+                                                checked={item.checked}
+                                                onChange={() => handleToggle(item.id)}
+                                                className="w-5 h-5 rounded border-stone-300 accent-red-900 cursor-pointer"
+                                                aria-label={isPending ? `Angre merking av ${item.name}` : `Merk ${item.name} som handlet`}
+                                            />
+                                            <label
+                                                htmlFor={`item-${item.id}`}
+                                                className="flex-1 flex items-center justify-between cursor-pointer"
+                                            >
+                                                <span className={isPending ? "text-stone-400 line-through" : "text-stone-800"}>
+                                                    {item.name}
+                                                </span>
+                                                <span className={`text-sm${isPending ? " text-stone-300" : " text-stone-400"}`}>
+                                                    {item.amount > 0 ? `${item.amount} ${item.unit}` : item.unit}
+                                                </span>
+                                            </label>
+                                            <button
+                                                onClick={() => removeItem(item.id)}
+                                                aria-label={`Fjern ${item.name} fra handlelisten`}
+                                                className="p-1.5 rounded-full hover:bg-red-50 hover:text-red-600 text-stone-300 transition-colors"
+                                            >
+                                                <Trash2 className="w-4 h-4" />
+                                            </button>
+                                        </li>
+                                    );
+                                })}
                             </ul>
                         </section>
                     )}
 
-                    {/* Handlede varer */}
                     {checked.length > 0 && (
                         <section aria-label="Handlede varer">
                             <div className="flex items-center gap-2 mb-3 text-xs text-stone-400 uppercase tracking-wider">
@@ -76,7 +121,7 @@ const ShoppingListPage = () => {
                                             type="checkbox"
                                             id={`item-${item.id}`}
                                             checked={true}
-                                            onChange={() => toggleItem(item.id)}
+                                            onChange={() => handleToggle(item.id)}
                                             className="w-5 h-5 rounded border-stone-300 accent-red-900 cursor-pointer"
                                             aria-label={`Fjern merking av ${item.name}`}
                                         />
