@@ -5,20 +5,21 @@ interface Props {
     text: string;
     to?: string;
     onClick?: () => void;
-    variant?: "primary" | "danger" | "secondary";
+    variant?: "primary" | "danger" | "secondary" | "outlined";
     fullWidth?: boolean;
 }
 
 const Button = ({ text, to, onClick, variant = "primary", fullWidth = false }: Props) => {
 
     // 1. Felles styling som gjelder alle knapper
-    const base = "text-xs px-3 py-2 rounded-lg text-white font-light transition-colors whitespace-nowrap";
+    const base = "text-xs px-3 py-2 rounded-lg font-light transition-colors whitespace-nowrap";
 
     // 2. Variant-spesifikk styling
     const variants = {
-        primary: "bg-[#4c0000] hover:bg-[#6a1a14]",
-        danger: "bg-red-600 hover:bg-red-700",
-        secondary: "bg-gray-500 hover:bg-gray-600"
+        primary: "bg-[#4c0000] hover:bg-[#6a1a14] text-white",
+        danger: "bg-red-600 hover:bg-red-700 text-white",
+        secondary: "bg-gray-500 hover:bg-gray-600 text-white",
+        outlined: "bg-transparent border border-[#4c0000] text-[#4c0000] hover:bg-[#4c0000] hover:text-white"
     };
 
     // 3. Sett sammen alle klasser

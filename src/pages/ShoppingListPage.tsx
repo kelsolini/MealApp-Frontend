@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Trash2, ShoppingCart, CheckCheck } from "lucide-react";
 import { useShoppingList } from "../contexts/ShoppingListContext";
-import Button from "../components/Shared/Button";
 
 const ShoppingListPage = () => {
     const { items, toggleItem, removeItem, clearList } = useShoppingList();
@@ -54,7 +53,15 @@ const ShoppingListPage = () => {
                     <ShoppingCart className="w-6 h-6 text-stone-600" aria-hidden="true" />
                     <h1 className="text-3xl font-serif text-stone-900">Handleliste</h1>
                 </div>
-                {items.length > 0 && (<Button text="Tøm handleliste" onClick={clearList} variant="danger" />)}
+                {items.length > 0 && (
+                    <button
+                        onClick={clearList}
+                        className="flex items-center gap-2 px-6 py-3 border border-stone-300 rounded-full hover:bg-stone-50 transition-colors text-sm"
+                    >
+                        <Trash2 className="w-4 h-4" aria-hidden="true" />
+                        Tøm handleliste
+                    </button>
+                )}
             </div>
 
             {items.length === 0 ? (

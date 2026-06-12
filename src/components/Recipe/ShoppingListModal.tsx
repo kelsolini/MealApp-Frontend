@@ -194,7 +194,7 @@ const ShoppingListModal = ({ isOpen, onClose, ingredients, recipeName }: Props) 
                     </button>
                     <button
                         onClick={handleConfirm}
-                        className="px-5 py-2 text-sm rounded-full bg-red-900 text-white hover:bg-red-800 transition-colors"
+                        className="px-5 py-2 text-sm rounded-full text-white bg-[#4c0000] hover:bg-[#6a1a14] transition-colors"
                     >
                         Legg til
                     </button>

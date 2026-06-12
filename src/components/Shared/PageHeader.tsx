@@ -84,6 +84,7 @@ const PageHeader = () => {
                             className="absolute right-2 top-1/2 -translate-y-1/2"
                         />
                     </form>
+                    <Button text="Importer fra lenke" to="/importer" variant="outlined" />
                     <Button text="+ Ny oppskrift" to="/recipes/add" />
                 </div>
             </nav>
@@ -115,6 +116,7 @@ const PageHeader = () => {
                         />
                     </form>
 
+                    <Button text="Importer fra lenke" to="/importer" variant="outlined" fullWidth />
                     <Button text="+ Ny oppskrift" to="/recipes/add" fullWidth />
                 </div>
             )}
