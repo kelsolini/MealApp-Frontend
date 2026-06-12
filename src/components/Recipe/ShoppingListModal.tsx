@@ -3,6 +3,7 @@ import { X, Plus, Trash2 } from "lucide-react";
 import { useShoppingList } from "../../contexts/ShoppingListContext";
 
 interface EditableItem {
+    id: string;
     name: string;
     amount: string;
     unit: string;
@@ -25,6 +26,7 @@ const ShoppingListModal = ({ isOpen, onClose, ingredients, recipeName }: Props) 
         if (isOpen) {
             setEditableItems(
                 ingredients.map(ing => ({
+                    id: crypto.randomUUID(),
                     name: ing.name,
                     amount: String(ing.amount),
                     unit: ing.unit,
@@ -62,7 +64,8 @@ const ShoppingListModal = ({ isOpen, onClose, ingredients, recipeName }: Props) 
         };
         document.addEventListener("keydown", trap);
         return () => document.removeEventListener("keydown", trap);
-    }, [isOpen, editableItems]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- trap handler re-queries DOM on each Tab press; re-running on editableItems would steal focus after every keystroke
+    }, [isOpen]);
 
     useEffect(() => {
         document.body.style.overflow = isOpen ? "hidden" : "";
@@ -71,14 +74,14 @@ const ShoppingListModal = ({ isOpen, onClose, ingredients, recipeName }: Props) 
 
     if (!isOpen) return null;
 
-    const updateItem = (index: number, field: keyof EditableItem, value: string) =>
-        setEditableItems(prev => prev.map((item, i) => i === index ? { ...item, [field]: value } : item));
+    const updateItem = (id: string, field: keyof EditableItem, value: string) =>
+        setEditableItems(prev => prev.map(item => item.id === id ? { ...item, [field]: value } : item));
 
-    const removeItem = (index: number) =>
-        setEditableItems(prev => prev.filter((_, i) => i !== index));
+    const removeItem = (id: string) =>
+        setEditableItems(prev => prev.filter(item => item.id !== id));
 
     const addExtra = () =>
-        setEditableItems(prev => [...prev, { name: "", amount: "", unit: "" }]);
+        setEditableItems(prev => [...prev, { id: crypto.randomUUID(), name: "", amount: "", unit: "" }]);
 
     const handleConfirm = () => {
         const valid = editableItems
@@ -96,7 +99,6 @@ const ShoppingListModal = ({ isOpen, onClose, ingredients, recipeName }: Props) 
         <div
             className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50"
             onClick={e => { if (e.target === e.currentTarget) onClose(); }}
-            aria-hidden="true"
         >
             <div
                 ref={modalRef}
@@ -138,21 +140,21 @@ const ShoppingListModal = ({ isOpen, onClose, ingredients, recipeName }: Props) 
                     <ul className="space-y-2" aria-label="Ingredienser i handlelisten">
                         {editableItems.map((item, i) => (
                             <li
-                                key={i}
+                                key={item.id}
                                 className="grid gap-2 items-center"
                                 style={{ gridTemplateColumns: "1fr 5rem 4rem 2rem" }}
                             >
                                 <input
                                     type="text"
                                     value={item.name}
-                                    onChange={e => updateItem(i, "name", e.target.value)}
+                                    onChange={e => updateItem(item.id, "name", e.target.value)}
                                     aria-label={`Ingrediens ${i + 1}`}
                                     className="px-3 py-1.5 border border-stone-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-stone-400"
                                 />
                                 <input
                                     type="number"
                                     value={item.amount}
-                                    onChange={e => updateItem(i, "amount", e.target.value)}
+                                    onChange={e => updateItem(item.id, "amount", e.target.value)}
                                     min={0}
                                     aria-label={`Mengde for ${item.name || `ingrediens ${i + 1}`}`}
                                     className="px-3 py-1.5 border border-stone-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-stone-400"
@@ -160,12 +162,12 @@ const ShoppingListModal = ({ isOpen, onClose, ingredients, recipeName }: Props) 
                                 <input
                                     type="text"
                                     value={item.unit}
-                                    onChange={e => updateItem(i, "unit", e.target.value)}
+                                    onChange={e => updateItem(item.id, "unit", e.target.value)}
                                     aria-label={`Enhet for ${item.name || `ingrediens ${i + 1}`}`}
                                     className="px-3 py-1.5 border border-stone-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-stone-400"
                                 />
                                 <button
-                                    onClick={() => removeItem(i)}
+                                    onClick={() => removeItem(item.id)}
                                     aria-label={`Fjern ${item.name || `ingrediens ${i + 1}`}`}
                                     className="flex items-center justify-center w-7 h-7 rounded-full hover:bg-red-50 hover:text-red-600 text-stone-400 transition-colors"
                                 >
