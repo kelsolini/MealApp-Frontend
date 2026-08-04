@@ -1,5 +1,23 @@
 @import "tailwindcss";
 
+@theme {
+    --color-surface: #FEFCF6;
+    --color-ink: #17130f;
+    --color-mahogany: #4C0000;
+    --color-olive: #ABAC5A;
+    --color-sand: #D6CCA8;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --color-surface: #17130f;
+        --color-ink: #FEFCF6;
+        --color-mahogany: #e2685a;
+        --color-olive: #c7c97a;
+        --color-sand: #4a4030;
+    }
+}
+
 body {
-    background-color: #FEFCF6;
+    background-color: var(--color-surface);
 }

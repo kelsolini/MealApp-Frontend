@@ -74,7 +74,7 @@ const ShoppingListPage = () => {
                 <div className="space-y-8">
                     {unchecked.length > 0 && (
                         <section aria-label="Varer som gjenstår">
-                            <ul className="divide-y divide-stone-100 bg-white rounded-2xl border border-stone-100 overflow-hidden">
+                            <ul className="divide-y divide-stone-100 bg-surface rounded-2xl border border-stone-100 overflow-hidden">
                                 {unchecked.map(item => {
                                     const isPending = pendingMove.has(item.id);
                                     return (

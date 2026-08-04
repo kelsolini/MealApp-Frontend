@@ -61,7 +61,7 @@ const ImportRecipePage = () => {
             <p className="text-sm text-gray-500 mb-6">
                 Lim inn lenken til en oppskrift, så henter vi ut innholdet automatisk.
             </p>
-            <section className="bg-white rounded-lg shadow p-6 max-w-2xl mx-auto">
+            <section className="bg-surface rounded-lg shadow p-6 max-w-2xl mx-auto">
                 <div className="flex flex-col space-y-4">
                     <div className="flex flex-col space-y-1">
                         <label htmlFor="import-url" className="text-sm font-medium text-gray-700">
@@ -94,7 +94,7 @@ const ImportRecipePage = () => {
                         type="button"
                         onClick={handleImport}
                         disabled={isLoading || !url.trim()}
-                        className="w-full py-2 bg-[#4c0000] text-white text-xs font-light rounded-lg hover:bg-[#6a1a14] disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2"
+                        className="w-full py-2 bg-mahogany text-white text-xs font-light rounded-lg hover:bg-[#6a1a14] disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2"
                     >
                         {isLoading ? (
                             <>

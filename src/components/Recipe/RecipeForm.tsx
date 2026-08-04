@@ -108,14 +108,14 @@ const RecipeForm = ({ initialData, onSubmit, submitLabel }: Props) => {
                 <div className="flex flex-col space-y-1">
                     <label className="text-sm font-medium text-gray-700">Type</label>
                     <select value={type} onChange={e => setType(e.target.value)}
-                        className="px-3 py-2 border rounded-md bg-white">
+                        className="px-3 py-2 border rounded-md bg-surface">
                         {TYPES.map(t => <option key={t} value={t}>{t}</option>)}
                     </select>
                 </div>
                 <div className="flex flex-col space-y-1">
                     <label className="text-sm font-medium text-gray-700">Kategori</label>
                     <select value={category} onChange={e => setCategory(e.target.value)}
-                        className="px-3 py-2 border rounded-md bg-white">
+                        className="px-3 py-2 border rounded-md bg-surface">
                         {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
                     </select>
                 </div>

@@ -16,10 +16,10 @@ const Button = ({ text, to, onClick, variant = "primary", fullWidth = false }: P
 
     // 2. Variant-spesifikk styling
     const variants = {
-        primary: "bg-[#4c0000] hover:bg-[#6a1a14] text-white",
+        primary: "bg-mahogany hover:bg-[#6a1a14] text-white",
         danger: "bg-red-600 hover:bg-red-700 text-white",
         secondary: "bg-gray-500 hover:bg-gray-600 text-white",
-        outlined: "bg-transparent border border-[#4c0000] text-[#4c0000] hover:bg-[#4c0000] hover:text-white"
+        outlined: "bg-transparent border border-mahogany text-mahogany hover:bg-mahogany hover:text-white"
     };
 
     // 3. Sett sammen alle klasser

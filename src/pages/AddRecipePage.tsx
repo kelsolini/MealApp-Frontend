@@ -20,7 +20,7 @@ const AddRecipePage = () => {
     return (
         <main className="max-w-4xl mx-auto px-6 py-8">
             <h1 className="text-3xl font-bold text-gray-800 mb-6">Legg til oppskrift</h1>
-            <section className="bg-white rounded-lg shadow p-6 max-w-2xl mx-auto">
+            <section className="bg-surface rounded-lg shadow p-6 max-w-2xl mx-auto">
                 <RecipeForm initialData={draft} onSubmit={handleSubmit} submitLabel="Lagre oppskrift" />
             </section>
         </main>

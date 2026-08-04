@@ -53,7 +53,7 @@ const RecipePickerModal = ({ isOpen, onClose, day, onSelect }: Props) => {
                 role="dialog"
                 aria-modal="true"
                 aria-labelledby={titleId}
-                className="bg-white rounded-2xl shadow-xl w-full max-w-2xl max-h-[85vh] flex flex-col"
+                className="bg-surface rounded-2xl shadow-xl w-full max-w-2xl max-h-[85vh] flex flex-col"
             >
                 {/* Header */}
                 <div className="flex items-center justify-between px-6 pt-6 pb-4 border-b border-stone-100">

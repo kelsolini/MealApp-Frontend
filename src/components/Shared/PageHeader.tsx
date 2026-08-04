@@ -37,7 +37,7 @@ const PageHeader = () => {
     };
 
     return (
-        <header className="bg-white border-b border-gray-200 px-6 py-4">
+        <header className="bg-surface px-6 py-4">
             <nav className="max-w-6xl mx-auto flex items-center justify-between">
 
                 {/* VENSTRE: logo + nav-lenker som én gruppe */}

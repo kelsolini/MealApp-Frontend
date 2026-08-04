@@ -35,7 +35,7 @@ const RecipeItem = ({ recipe }: { recipe: IRecipe }) => {
     };
 
     return (
-        <article className="bg-white border border-gray-200 rounded-lg p-6">
+        <article className="bg-surface border border-gray-200 rounded-lg p-6">
             {recipe.image && (
                 <img
                     src={getImageUrl(recipe.image)}

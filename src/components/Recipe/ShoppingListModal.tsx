@@ -106,7 +106,7 @@ const ShoppingListModal = ({ isOpen, onClose, ingredients, recipeName }: Props) 
                 role="dialog"
                 aria-modal="true"
                 aria-labelledby={titleId}
-                className="bg-white rounded-2xl shadow-xl w-full max-w-lg max-h-[90vh] flex flex-col"
+                className="bg-surface rounded-2xl shadow-xl w-full max-w-lg max-h-[90vh] flex flex-col"
             >
                 {/* Header */}
                 <div className="flex items-center justify-between px-6 pt-6 pb-4 border-b border-stone-100">
@@ -197,7 +197,7 @@ const ShoppingListModal = ({ isOpen, onClose, ingredients, recipeName }: Props) 
                     </button>
                     <button
                         onClick={handleConfirm}
-                        className="px-5 py-2 text-sm rounded-full text-white bg-[#4c0000] hover:bg-[#6a1a14] transition-colors"
+                        className="px-5 py-2 text-sm rounded-full text-white bg-mahogany hover:bg-[#6a1a14] transition-colors"
                     >
                         Legg til
                     </button>

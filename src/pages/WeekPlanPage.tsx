@@ -53,7 +53,7 @@ const WeekPlanPage = () => {
                         className={`flex items-center gap-2 text-xs px-3 py-2 rounded-lg text-white font-light transition-colors whitespace-nowrap ${
                             addedFeedback
                                 ? "bg-green-700 text-white"
-                                : "bg-[#4c0000] text-white hover:bg-[#6a1a14]"
+                                : "bg-mahogany text-white hover:bg-[#6a1a14]"
                         }`}
                     >
                     <ShoppingBasket className="w-4 h-4" aria-hidden="true" />
@@ -72,7 +72,7 @@ const WeekPlanPage = () => {
                         <article
                             key={day}
                             aria-label={`${day}${recipe ? `: ${recipe.title}` : ": ingen rett planlagt"}`}
-                            className="flex flex-col rounded-2xl border border-stone-200 overflow-hidden bg-white min-h-48"
+                            className="flex flex-col rounded-2xl border border-stone-200 overflow-hidden bg-surface min-h-48"
                         >
                             {/* Dag-header */}
                             <div className="px-3 py-2 bg-stone-50 border-b border-stone-100 flex-shrink-0">

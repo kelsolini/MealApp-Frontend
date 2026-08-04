@@ -22,7 +22,7 @@ export function FavoriteButton({ recipeId, className = "" }: FavoriteButtonProps
             }}
             aria-pressed={active}
             aria-label={active ? "Fjern fra favoritter" : "Legg til favoritter"}
-            className={`bg-white rounded-full p-2 shadow-md hover:bg-stone-50 ${className}`}
+            className={`bg-surface rounded-full p-2 shadow-md ${className}`}
         >
             <Heart
                 className={`w-4 h-4 ${active ? "fill-red-500 text-red-500" : "text-stone-700"}`}
