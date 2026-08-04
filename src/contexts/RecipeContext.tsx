@@ -1,4 +1,4 @@
-import { useState, useEffect, type ReactNode, createContext } from "react";
+import { useState, useEffect, useCallback, type ReactNode, createContext } from "react";
 import type { IRecipe } from "../interfaces/Recipe/IRecipe";
 import type { IRecipeContext } from "../interfaces/Context/IRecipeContext";
 import type { IRecipeSingleResponse, IDefaultResponse, IRecipeListResponse } from "../interfaces/Response/ResponseInterfaces";
@@ -28,7 +28,7 @@ export const RecipeProvider = ({ children }: Props) => {
     }, [])
 
     /* GET BY ID */
-    const fetchRecipeById = async (id: number): Promise<IRecipeSingleResponse> => {
+    const fetchRecipeById = useCallback(async (id: number): Promise<IRecipeSingleResponse> => {
         const response = await recipeService.getRecipeById(id);
         if (response.success && response.data) {
             setIdRecipe(response.data);
@@ -36,9 +36,9 @@ export const RecipeProvider = ({ children }: Props) => {
         } else {
             return { success: false, data: null }
         }
-    }
+    }, [])
     /* GET RECIPE ON TITLE */
-    const fetchRecipeByTitle = async (title: string) : Promise<IRecipeListResponse> => {
+    const fetchRecipeByTitle = useCallback(async (title: string): Promise<IRecipeListResponse> => {
         const response = await recipeService.getRecipeByTitle(title);
         if(response.success && response.data){
             setTitleRecipes(response.data);
@@ -46,10 +46,10 @@ export const RecipeProvider = ({ children }: Props) => {
         } else {
             return { success: false, data: null }
         }
-    }
+    }, [])
 
     /* GET RECIPES BY TYPE */
-    const fetchRecipesByType = async (type: string): Promise<IRecipeListResponse> => {
+    const fetchRecipesByType = useCallback(async (type: string): Promise<IRecipeListResponse> => {
         const response = await recipeService.getRecipesByType(type);
         if (response.success && response.data) {
             setFilteredRecipes(response.data);
@@ -57,7 +57,7 @@ export const RecipeProvider = ({ children }: Props) => {
         } else {
             return { success: false, data: null }
         }
-    }
+    }, [])
 
     /* PUT RECIPE */
     const putRecipe = async (editedRecipe: IRecipe, image: File | null): Promise<IDefaultResponse> => {

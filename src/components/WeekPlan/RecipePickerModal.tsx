@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { X, Search } from "lucide-react";
 import { RecipeContext } from "../../contexts/RecipeContext";
 import type { IRecipe } from "../../interfaces/Recipe/IRecipe";
@@ -23,13 +23,17 @@ const RecipePickerModal = ({ isOpen, onClose, day, onSelect }: Props) => {
         ? recipes.filter(r => r.title.toLowerCase().includes(search.toLowerCase()))
         : recipes;
 
+    const closeModal = useCallback(() => {
+        setSearch("");
+        onClose();
+    }, [onClose]);
+
     useEffect(() => {
         if (!isOpen) return;
-        setSearch("");
-        const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
+        const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") closeModal(); };
         document.addEventListener("keydown", onKey);
         return () => document.removeEventListener("keydown", onKey);
-    }, [isOpen, onClose]);
+    }, [isOpen, closeModal]);
 
     useEffect(() => {
         document.body.style.overflow = isOpen ? "hidden" : "";
@@ -41,7 +45,7 @@ const RecipePickerModal = ({ isOpen, onClose, day, onSelect }: Props) => {
     return (
         <div
             className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50"
-            onClick={e => { if (e.target === e.currentTarget) onClose(); }}
+            onClick={e => { if (e.target === e.currentTarget) closeModal(); }}
             aria-hidden="true"
         >
             <div
@@ -57,7 +61,7 @@ const RecipePickerModal = ({ isOpen, onClose, day, onSelect }: Props) => {
                         Velg oppskrift for {day}
                     </h2>
                     <button
-                        onClick={onClose}
+                        onClick={closeModal}
                         aria-label="Lukk dialog"
                         className="p-2 rounded-full hover:bg-stone-100 transition-colors"
                     >
@@ -90,7 +94,7 @@ const RecipePickerModal = ({ isOpen, onClose, day, onSelect }: Props) => {
                             {filtered.map(recipe => (
                                 <li key={recipe.id}>
                                     <button
-                                        onClick={() => { onSelect(day, recipe); onClose(); }}
+                                        onClick={() => { onSelect(day, recipe); closeModal(); }}
                                         aria-label={`Velg ${recipe.title}`}
                                         className="w-full text-left rounded-xl overflow-hidden border border-stone-100 hover:border-stone-300 hover:shadow-sm transition-all group"
                                     >

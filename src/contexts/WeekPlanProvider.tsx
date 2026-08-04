@@ -1,18 +1,7 @@
-import { createContext, useContext, useState, useEffect, type ReactNode } from "react";
+import { useState, useEffect, type ReactNode } from "react";
+import { WeekPlanContext, type WeekPlan, type WeekDay } from "./WeekPlanContext";
 import type { IRecipe } from "../interfaces/Recipe/IRecipe";
 
-export const DAYS = ["mandag", "tirsdag", "onsdag", "torsdag", "fredag", "lørdag", "søndag"] as const;
-export type WeekDay = typeof DAYS[number];
-
-type WeekPlan = Partial<Record<WeekDay, IRecipe>>;
-
-interface WeekPlanContextType {
-    weekPlan: WeekPlan;
-    setDayRecipe: (day: WeekDay, recipe: IRecipe) => void;
-    removeDayRecipe: (day: WeekDay) => void;
-}
-
-const WeekPlanContext = createContext<WeekPlanContextType | null>(null);
 const STORAGE_KEY = "weekPlan";
 
 export const WeekPlanProvider = ({ children }: { children: ReactNode }) => {
@@ -44,10 +33,4 @@ export const WeekPlanProvider = ({ children }: { children: ReactNode }) => {
             {children}
         </WeekPlanContext.Provider>
     );
-};
-
-export const useWeekPlan = () => {
-    const ctx = useContext(WeekPlanContext);
-    if (!ctx) throw new Error("useWeekPlan must be used within WeekPlanProvider");
-    return ctx;
 };

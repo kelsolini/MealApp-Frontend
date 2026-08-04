@@ -1,21 +1,6 @@
-// src/context/FavoritesContext.tsx
-import {
-  createContext,
-  useContext,
-  useState,
-  useEffect,
-  useCallback,
-  type ReactNode,
-} from "react";
+import { useState, useEffect, useCallback, type ReactNode } from "react";
 import { favoritesStorage, type RecipeId } from "../service/favoritesStorage";
-
-interface FavoritesContextValue {
-  favorites: RecipeId[];
-  toggleFavorite: (recipeId: RecipeId) => void;
-  isFavorite: (recipeId: RecipeId) => boolean;
-}
-
-const FavoritesContext = createContext<FavoritesContextValue | null>(null);
+import { FavoritesContext } from "./FavoritesContext";
 
 interface FavoritesProviderProps {
   children: ReactNode;
@@ -51,12 +36,4 @@ export function FavoritesProvider({ children }: FavoritesProviderProps) {
           {children}
       </FavoritesContext.Provider>
   );
-}
-
-export function useFavorites(): FavoritesContextValue {
-  const context = useContext(FavoritesContext);
-  if (!context) {
-      throw new Error("useFavorites må brukes inni en FavoritesProvider");
-  }
-  return context;
 }

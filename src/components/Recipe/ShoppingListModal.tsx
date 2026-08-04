@@ -19,10 +19,12 @@ interface Props {
 const ShoppingListModal = ({ isOpen, onClose, ingredients, recipeName }: Props) => {
     const { addItems } = useShoppingList();
     const [editableItems, setEditableItems] = useState<EditableItem[]>([]);
+    const [wasOpen, setWasOpen] = useState(isOpen);
     const modalRef = useRef<HTMLDivElement>(null);
     const titleId = "shopping-modal-title";
 
-    useEffect(() => {
+    if (isOpen !== wasOpen) {
+        setWasOpen(isOpen);
         if (isOpen) {
             setEditableItems(
                 ingredients.map(ing => ({
@@ -33,7 +35,7 @@ const ShoppingListModal = ({ isOpen, onClose, ingredients, recipeName }: Props) 
                 }))
             );
         }
-    }, [isOpen, ingredients]);
+    }
 
     useEffect(() => {
         if (!isOpen) return;
@@ -64,7 +66,6 @@ const ShoppingListModal = ({ isOpen, onClose, ingredients, recipeName }: Props) 
         };
         document.addEventListener("keydown", trap);
         return () => document.removeEventListener("keydown", trap);
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- trap handler re-queries DOM on each Tab press; re-running on editableItems would steal focus after every keystroke
     }, [isOpen]);
 
     useEffect(() => {

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Trash2, Plus, ShoppingBasket } from "lucide-react";
 import { useWeekPlan, DAYS, type WeekDay } from "../contexts/WeekPlanContext";
 import { useShoppingList } from "../contexts/ShoppingListContext";
@@ -19,10 +19,6 @@ const WeekPlanPage = () => {
 
     const plannedCount = DAYS.filter(d => weekPlan[d]).length;
 
-    useEffect(() => {
-        setAddedFeedback(false);
-    }, [weekPlan]);
-
     const handleAddAllToShoppingList = () => {
         const allIngredients = DAYS.flatMap(day =>
             weekPlan[day]?.ingredients.map(ing => ({
@@ -35,7 +31,15 @@ const WeekPlanPage = () => {
         setAddedFeedback(true);
     };
 
-    const handleSelect = (day: WeekDay, recipe: IRecipe) => setDayRecipe(day, recipe);
+    const handleSelect = (day: WeekDay, recipe: IRecipe) => {
+        setDayRecipe(day, recipe);
+        setAddedFeedback(false);
+    };
+
+    const handleRemove = (day: WeekDay) => {
+        removeDayRecipe(day);
+        setAddedFeedback(false);
+    };
 
     return (
         <main className="max-w-5xl mx-auto px-4 py-8">
@@ -108,7 +112,7 @@ const WeekPlanPage = () => {
                                             Bytt
                                         </button>
                                         <button
-                                            onClick={() => removeDayRecipe(day)}
+                                            onClick={() => handleRemove(day)}
                                             aria-label={`Fjern oppskrift fra ${day}`}
                                             className="p-1.5 rounded-lg hover:bg-red-50 hover:text-red-600 text-stone-300 transition-colors"
                                         >

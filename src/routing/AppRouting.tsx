@@ -2,9 +2,9 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { HomePage, AddRecipePage, EditRecipePage, RecipePage, RecipeDetailPage, ShoppingListPage, WeekPlanPage, ImportRecipePage } from '../pages/index';
 import PageHeader from '../components/Shared/PageHeader';
 import { RecipeProvider } from "../contexts/RecipeContext";
-import { FavoritesProvider } from "../contexts/FavoritesContext";
-import { ShoppingListProvider } from "../contexts/ShoppingListContext";
-import { WeekPlanProvider } from "../contexts/WeekPlanContext";
+import { FavoritesProvider } from "../contexts/FavoritesProvider";
+import { ShoppingListProvider } from "../contexts/ShoppingListProvider";
+import { WeekPlanProvider } from "../contexts/WeekPlanProvider";
 
 const AppRouting = () => {
     return(

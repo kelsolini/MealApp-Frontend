@@ -18,7 +18,7 @@ const EditRecipePage = () => {
             if (response.success && response.data) setRecipe(response.data);
             setLoading(false);
         });
-    }, [id]);
+    }, [id, fetchRecipeById]);
 
     const handleSubmit = async (updatedRecipe: IRecipe, image: File | null) => {
         const response = await putRecipe(updatedRecipe, image);

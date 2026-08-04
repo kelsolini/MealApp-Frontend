@@ -16,7 +16,7 @@ const RecipePage = () => {
     useEffect(() => {
         if (query) fetchRecipeByTitle(query);
         else if (typeFilter) fetchRecipesByType(typeFilter);
-    }, [query, typeFilter]);
+    }, [query, typeFilter, fetchRecipeByTitle, fetchRecipesByType]);
 
     const displayedRecipes = useMemo(() => {
         if (query) return titleRecipes;

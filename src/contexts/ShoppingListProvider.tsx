@@ -1,23 +1,6 @@
-import { createContext, useContext, useState, useEffect, type ReactNode } from "react";
+import { useState, useEffect, type ReactNode } from "react";
 import { mergeShoppingItems } from "../utils/mergeShoppingItems";
-
-export interface ShoppingListItem {
-    id: string;
-    name: string;
-    amount: number;
-    unit: string;
-    checked: boolean;
-}
-
-interface ShoppingListContextType {
-    items: ShoppingListItem[];
-    addItems: (newItems: Omit<ShoppingListItem, "id" | "checked">[]) => void;
-    toggleItem: (id: string) => void;
-    removeItem: (id: string) => void;
-    clearList: () => void;
-}
-
-const ShoppingListContext = createContext<ShoppingListContextType | null>(null);
+import { ShoppingListContext, type ShoppingListItem } from "./ShoppingListContext";
 
 const STORAGE_KEY = "shoppingList";
 
@@ -48,10 +31,4 @@ export const ShoppingListProvider = ({ children }: { children: ReactNode }) => {
             {children}
         </ShoppingListContext.Provider>
     );
-};
-
-export const useShoppingList = () => {
-    const ctx = useContext(ShoppingListContext);
-    if (!ctx) throw new Error("useShoppingList must be used within ShoppingListProvider");
-    return ctx;
 };
