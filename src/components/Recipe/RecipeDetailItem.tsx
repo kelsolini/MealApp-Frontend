@@ -78,7 +78,7 @@ const RecipeDetailItem = ({ recipe }: RecipeDetailItemProps) => {
   }));
 
   return (
-    <div className="space-y-6 mx-9">
+    <div className="space-y-6">
       {/* Breadcrumb + handlinger */}
       <div className="flex flex-wrap items-center justify-between gap-4">
         <nav
