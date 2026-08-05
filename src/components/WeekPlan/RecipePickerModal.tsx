@@ -57,22 +57,22 @@ const RecipePickerModal = ({ isOpen, onClose, day, onSelect }: Props) => {
             >
                 {/* Header */}
                 <div className="flex items-center justify-between px-6 pt-6 pb-4 border-b border-stone-100">
-                    <h2 id={titleId} className="text-xl font-serif text-stone-900 capitalize">
+                    <h2 id={titleId} className="text-xl font-serif text-ink capitalize">
                         Velg oppskrift for {day}
                     </h2>
                     <button
                         onClick={closeModal}
                         aria-label="Lukk dialog"
-                        className="p-2 rounded-full hover:bg-stone-100 transition-colors"
+                        className="p-2 rounded-full hover:bg-ink/10 transition-colors"
                     >
-                        <X className="w-5 h-5 text-stone-600" />
+                        <X className="w-5 h-5 text-ink/70" />
                     </button>
                 </div>
 
                 {/* Søk */}
-                <div className="px-6 py-3 border-b border-stone-100">
+                <div className="px-6 py-3 border-b border-ink/10">
                     <div className="relative">
-                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400" aria-hidden="true" />
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-ink/50" aria-hidden="true" />
                         <input
                             type="search"
                             value={search}
@@ -80,7 +80,7 @@ const RecipePickerModal = ({ isOpen, onClose, day, onSelect }: Props) => {
                             placeholder="Søk etter oppskrift..."
                             aria-label="Søk etter oppskrift"
                             autoFocus
-                            className="w-full pl-9 pr-4 py-2 border border-stone-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-stone-400"
+                            className="text-ink placeholder:text-ink/40 w-full pl-9 pr-4 py-2 bg-surface border border-ink/20 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-mahogany"
                         />
                     </div>
                 </div>
@@ -88,7 +88,7 @@ const RecipePickerModal = ({ isOpen, onClose, day, onSelect }: Props) => {
                 {/* Oppskriftsliste */}
                 <div className="flex-1 overflow-y-auto p-4">
                     {filtered.length === 0 ? (
-                        <p className="text-center text-stone-400 py-10">Ingen oppskrifter funnet</p>
+                        <p className="text-center text-ink/50 py-10">Ingen oppskrifter funnet</p>
                     ) : (
                         <ul className="grid grid-cols-2 sm:grid-cols-3 gap-3" aria-label="Tilgjengelige oppskrifter">
                             {filtered.map(recipe => (
@@ -96,9 +96,9 @@ const RecipePickerModal = ({ isOpen, onClose, day, onSelect }: Props) => {
                                     <button
                                         onClick={() => { onSelect(day, recipe); closeModal(); }}
                                         aria-label={`Velg ${recipe.title}`}
-                                        className="w-full text-left rounded-xl overflow-hidden border border-stone-100 hover:border-stone-300 hover:shadow-sm transition-all group"
+                                        className="w-full text-left rounded-2xl overflow-hidden bg-sand/40 shadow-sm transition-all hover:shadow-md hover:-translate-y-0.5 group"
                                     >
-                                        <div className="aspect-video bg-stone-100 overflow-hidden">
+                                        <div className="aspect-video bg-ink/10 overflow-hidden">
                                             {recipe.image ? (
                                                 <img
                                                     src={getImageUrl(recipe.image)}
@@ -106,12 +106,12 @@ const RecipePickerModal = ({ isOpen, onClose, day, onSelect }: Props) => {
                                                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
                                                 />
                                             ) : (
-                                                <div className="w-full h-full flex items-center justify-center text-stone-200 text-3xl">🍽</div>
+                                                <div className="w-full h-full flex items-center justify-center text-ink/30 text-3xl">🍽</div>
                                             )}
                                         </div>
                                         <div className="p-2">
-                                            <p className="text-sm font-medium text-stone-800 line-clamp-2 min-h-[2.5rem]">{recipe.title}</p>
-                                            <p className="text-xs text-stone-400 capitalize">{recipe.type}</p>
+                                            <p className="text-sm font-serif font-semibold text-ink line-clamp-2 min-h-[2.5rem]">{recipe.title}</p>
+                                            <p className="text-xs text-ink/50 capitalize">{recipe.type}</p>
                                         </div>
                                     </button>
                                 </li>

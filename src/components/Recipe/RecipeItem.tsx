@@ -89,7 +89,7 @@ const RecipeItem = ({ recipe }: { recipe: IRecipe }) => {
                         onBlur={stopEditing}
                         onKeyDown={(e) => e.key === "Enter" && stopEditing()}
                         autoFocus
-                        className="w-20 text-sm text-center border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-gray-300"
+                        className="text-ink w-20 text-sm text-center border border-ink/20 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-mahogany"
                     />
                 ) : (
                     <button

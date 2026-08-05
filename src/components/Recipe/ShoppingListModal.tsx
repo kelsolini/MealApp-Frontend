@@ -150,7 +150,7 @@ const ShoppingListModal = ({ isOpen, onClose, ingredients, recipeName }: Props) 
                                     value={item.name}
                                     onChange={e => updateItem(item.id, "name", e.target.value)}
                                     aria-label={`Ingrediens ${i + 1}`}
-                                    className="px-3 py-1.5 border border-stone-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-stone-400"
+                                    className="text-ink placeholder:text-ink/40 px-3 py-1.5 border border-ink/20 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-mahogany"
                                 />
                                 <input
                                     type="number"
@@ -158,14 +158,14 @@ const ShoppingListModal = ({ isOpen, onClose, ingredients, recipeName }: Props) 
                                     onChange={e => updateItem(item.id, "amount", e.target.value)}
                                     min={0}
                                     aria-label={`Mengde for ${item.name || `ingrediens ${i + 1}`}`}
-                                    className="px-3 py-1.5 border border-stone-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-stone-400"
+                                    className="text-ink placeholder:text-ink/40 px-3 py-1.5 border border-ink/20 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-mahogany"
                                 />
                                 <input
                                     type="text"
                                     value={item.unit}
                                     onChange={e => updateItem(item.id, "unit", e.target.value)}
                                     aria-label={`Enhet for ${item.name || `ingrediens ${i + 1}`}`}
-                                    className="px-3 py-1.5 border border-stone-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-stone-400"
+                                    className="text-ink placeholder:text-ink/40 px-3 py-1.5 border border-ink/20 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-mahogany"
                                 />
                                 <button
                                     onClick={() => removeItem(item.id)}

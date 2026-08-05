@@ -45,7 +45,7 @@ const WeekPlanPage = () => {
         <main className="max-w-5xl mx-auto px-4 py-8">
             {/* Header */}
             <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
-                <h1 className="text-3xl font-serif text-stone-900">Ukesplan</h1>
+                <h1 className="text-3xl font-serif text-ink">Ukesplan</h1>
                 {plannedCount > 0 && (
                     <button
                         onClick={handleAddAllToShoppingList}
@@ -72,19 +72,19 @@ const WeekPlanPage = () => {
                         <article
                             key={day}
                             aria-label={`${day}${recipe ? `: ${recipe.title}` : ": ingen rett planlagt"}`}
-                            className="flex flex-col rounded-2xl border border-stone-200 overflow-hidden bg-surface min-h-48"
+                            className="flex flex-col rounded-2xl border border-ink/20 overflow-hidden bg-surface min-h-48"
                         >
                             {/* Dag-header */}
-                            <div className="px-3 py-2 bg-stone-50 border-b border-stone-100 flex-shrink-0">
-                                <p className="text-xs font-semibold uppercase tracking-wider text-stone-500">
+                            <div className="px-3 py-2 bg-ink/5 border-b border-ink/10 flex-shrink-0">
+                                <p className="text-xs font-semibold uppercase tracking-wider text-ink/70">
                                     {SHORT[day]}
                                 </p>
-                                <p className="text-xs text-stone-400 capitalize hidden sm:block">{day}</p>
+                                <p className="text-xs text-ink/45 capitalize hidden sm:block">{day}</p>
                             </div>
 
                             {recipe ? (
                                 <div className="flex flex-col flex-1">
-                                    <div className="aspect-video bg-stone-100 overflow-hidden flex-shrink-0">
+                                    <div className="aspect-video bg-ink/10 overflow-hidden flex-shrink-0">
                                         {recipe.image ? (
                                             <img
                                                 src={getImageUrl(recipe.image)}
@@ -92,29 +92,29 @@ const WeekPlanPage = () => {
                                                 className="w-full h-full object-cover"
                                             />
                                         ) : (
-                                            <div className="w-full h-full flex items-center justify-center text-2xl text-stone-200">
+                                            <div className="w-full h-full flex items-center justify-center text-2xl text-ink/30">
                                                 🍽
                                             </div>
                                         )}
                                     </div>
                                     <div className="flex-1 px-3 py-2">
-                                        <p className="text-sm font-medium text-stone-800 leading-snug line-clamp-2">
+                                        <p className="text-sm font-medium text-ink leading-snug line-clamp-2">
                                             {recipe.title}
                                         </p>
-                                        <p className="text-xs text-stone-400 mt-0.5 capitalize">{recipe.type}</p>
+                                        <p className="text-xs text-ink mt-0.5 capitalize">{recipe.type}</p>
                                     </div>
                                     <div className="flex gap-1 px-2 pb-2 flex-shrink-0">
                                         <button
                                             onClick={() => setPickerDay(day)}
                                             aria-label={`Bytt oppskrift for ${day}`}
-                                            className="flex-1 text-xs py-1.5 rounded-lg border border-stone-200 hover:bg-stone-50 text-stone-500 transition-colors"
+                                            className="flex-1 text-xs py-1.5 rounded-lg border border-ink/20 hover:bg-ink/10 text-ink transition-colors"
                                         >
                                             Bytt
                                         </button>
                                         <button
                                             onClick={() => handleRemove(day)}
                                             aria-label={`Fjern oppskrift fra ${day}`}
-                                            className="p-1.5 rounded-lg hover:bg-red-50 hover:text-red-600 text-stone-300 transition-colors"
+                                            className="p-1.5 rounded-lg hover:bg-red-50 hover:text-red-600 text-ink transition-colors"
                                         >
                                             <Trash2 className="w-3.5 h-3.5" />
                                         </button>
@@ -124,7 +124,7 @@ const WeekPlanPage = () => {
                                 <button
                                     onClick={() => setPickerDay(day)}
                                     aria-label={`Legg til oppskrift for ${day}`}
-                                    className="flex-1 flex flex-col items-center justify-center gap-2 py-6 text-stone-300 hover:text-stone-500 hover:bg-stone-50 transition-colors"
+                                    className="flex-1 flex flex-col items-center justify-center gap-2 py-6 text-ink hover:text-mahogany hover:bg-ink/10 transition-colors"
                                 >
                                     <Plus className="w-6 h-6" aria-hidden="true" />
                                     <span className="text-xs">Legg til</span>
@@ -136,7 +136,7 @@ const WeekPlanPage = () => {
             </div>
 
             {plannedCount === 0 && (
-                <p className="text-center text-stone-400 mt-12 text-sm">
+                <p className="text-center text-ink mt-12 text-sm">
                     Ingen retter planlagt. Klikk på en dag for å legge til en oppskrift.
                 </p>
             )}

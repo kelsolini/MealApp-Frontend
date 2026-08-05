@@ -2,6 +2,8 @@ import { useRef, useState } from "react";
 import type { IRecipe } from "../../interfaces/Recipe/IRecipe";
 import type { IIngredients } from "../../interfaces/Recipe/IIngredients";
 import { getImageUrl } from "../../config";
+import ImportFromLinkBar from "./ImportFromLinkBar";
+import type { IImportDraft } from "../../service/RecipeService";
 
 const TYPES = ["middag", "frokost", "lunsj", "dessert", "snack"];
 const CATEGORIES = ["hverdagsmat", "festmat", "sunn", "rask", "vegetar", "annet"];
@@ -89,8 +91,26 @@ const RecipeForm = ({ initialData, onSubmit, submitLabel }: Props) => {
 
     const currentImageUrl = imagePreview ?? getImageUrl(initialData?.image) ?? null;
 
+    const handleImported = (draft: IImportDraft) => {
+        setTitle(draft.title ?? "");
+        setType(draft.type ?? "middag");
+        setCategory(draft.category ?? "hverdagsmat");
+        setCuisine(draft.cuisine ?? "");
+        setSource(draft.source ?? "");
+        setDescription(draft.description ?? "");
+        setPortions(draft.portions ?? 1);
+        setIngredients(
+            draft.ingredients.length
+                ? draft.ingredients.map(ing => ({ ...ing, amount: ing.amount ?? 0 }))
+                : [emptyIngredient()]
+        );
+        setMethod(draft.method.length ? draft.method : [""]);
+    };
+
     return (
         <div className="space-y-6">
+            {!initialData && <ImportFromLinkBar onImported={handleImported} />}
+
             {/* Tittel */}
             <div className="flex flex-col space-y-1">
                 <label className="text-sm font-medium text-gray-700">Tittel *</label>

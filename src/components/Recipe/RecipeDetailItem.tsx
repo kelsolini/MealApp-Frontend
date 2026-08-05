@@ -145,13 +145,13 @@ const RecipeDetailItem = ({ recipe }: RecipeDetailItemProps) => {
           </div>
 
           {/* Tittel */}
-          <h1 className="color-ink text-4xl md:text-5xl font-serif leading-tight">
+          <h1 className="text-ink text-4xl md:text-5xl font-serif leading-tight">
             {recipe.title}
           </h1>
 
           {/* Beskrivelse */}
           {recipe.description && (
-            <p className="color-ink leading-relaxed">{recipe.description}</p>
+            <p className="text-ink leading-relaxed">{recipe.description}</p>
           )}
 
           {/* Porsjoner */}
@@ -170,7 +170,7 @@ const RecipeDetailItem = ({ recipe }: RecipeDetailItemProps) => {
                   onKeyDown={(e) => e.key === "Enter" && stopEditing()}
                   autoFocus
                   aria-label="Endre antall porsjoner"
-                  className="text-ink w-16 font-serif text-xl normal-case tracking-normal border border-stone-300 rounded px-2 py-0.5 focus:outline-none focus:ring-2 focus:ring-stone-300"
+                  className="text-ink w-16 font-serif text-xl normal-case tracking-normal border border-ink/20 rounded px-2 py-0.5 focus:outline-none focus:ring-2 focus:ring-mahogany"
                 />
               ) : (
                 <button
@@ -242,15 +242,15 @@ const RecipeDetailItem = ({ recipe }: RecipeDetailItemProps) => {
       {/* Ingredienser + Fremgangsmåte */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div>
-          <h2 className="color-ink text-2xl font-serif mb-4">Ingredienser</h2>
+          <h2 className="text-ink text-2xl font-serif mb-4">Ingredienser</h2>
           <ul className="space-y-2" aria-label="Ingredienser">
             {recipe.ingredients.map((ing, i) => (
               <li
                 key={i}
                 className="flex justify-between items-center py-2 border-b border-stone-100"
               >
-                <span className="color-ink">{ing.name}</span>
-                <span className="color-ink text-sm">
+                <span className="text-ink">{ing.name}</span>
+                <span className="text-ink text-sm">
                   {scale(ing.amount, factor)} {ing.unit}
                 </span>
               </li>
@@ -259,7 +259,7 @@ const RecipeDetailItem = ({ recipe }: RecipeDetailItemProps) => {
         </div>
 
         <div>
-          <h2 className="color-ink text-2xl font-serif mb-4">Fremgangsmåte</h2>
+          <h2 className="text-ink text-2xl font-serif mb-4">Fremgangsmåte</h2>
           <ol className="space-y-4" aria-label="Fremgangsmåte">
             {recipe.method.map((step, i) => (
               <li key={i} className="flex gap-4">
@@ -269,7 +269,7 @@ const RecipeDetailItem = ({ recipe }: RecipeDetailItemProps) => {
                 >
                   {i + 1}
                 </span>
-                <p className="color-ink leading-relaxed">{step}</p>
+                <p className="text-ink leading-relaxed">{step}</p>
               </li>
             ))}
           </ol>

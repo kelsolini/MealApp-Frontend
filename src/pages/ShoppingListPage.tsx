@@ -51,7 +51,7 @@ const ShoppingListPage = () => {
             <div className="flex items-center justify-between mb-8">
                 <div className="flex items-center gap-3">
                     <ShoppingCart className="w-6 h-6 text-stone-600" aria-hidden="true" />
-                    <h1 className="text-3xl font-serif text-stone-900">Handleliste</h1>
+                    <h1 className="text-3xl font-serif text-ink">Handleliste</h1>
                 </div>
                 {items.length > 0 && (
                     <button
@@ -87,14 +87,14 @@ const ShoppingListPage = () => {
                                                 id={`item-${item.id}`}
                                                 checked={item.checked}
                                                 onChange={() => handleToggle(item.id)}
-                                                className="w-5 h-5 rounded border-stone-300 accent-red-900 cursor-pointer"
+                                                className="w-5 h-5 rounded border-ink/20 accent-red-900 cursor-pointer"
                                                 aria-label={isPending ? `Angre merking av ${item.name}` : `Merk ${item.name} som handlet`}
                                             />
                                             <label
                                                 htmlFor={`item-${item.id}`}
                                                 className="flex-1 flex items-center justify-between cursor-pointer"
                                             >
-                                                <span className={isPending ? "text-stone-400 line-through" : "text-stone-800"}>
+                                                <span className={isPending ? "text-stone-400 line-through" : "text-ink"}>
                                                     {item.name}
                                                 </span>
                                                 <span className={`text-sm${isPending ? " text-stone-300" : " text-stone-400"}`}>
@@ -129,7 +129,7 @@ const ShoppingListPage = () => {
                                             id={`item-${item.id}`}
                                             checked={true}
                                             onChange={() => handleToggle(item.id)}
-                                            className="w-5 h-5 rounded border-stone-300 accent-red-900 cursor-pointer"
+                                            className="w-5 h-5 rounded border-ink/20 accent-red-900 cursor-pointer"
                                             aria-label={`Fjern merking av ${item.name}`}
                                         />
                                         <label
