@@ -5,6 +5,7 @@ import RecipePage from './RecipePage';
 import RecipeDetailPage from './RecipeDetailPage';
 import ShoppingListPage from './ShoppingListPage';
 import WeekPlanPage from './WeekPlanPage';
+import LoginPage from './LoginPage';
 
 export {
     HomePage,
@@ -13,5 +14,6 @@ export {
     RecipePage,
     RecipeDetailPage,
     ShoppingListPage,
-    WeekPlanPage
+    WeekPlanPage,
+    LoginPage
 }

@@ -1,4 +1,5 @@
-import axios from "axios";
+import api from "./api";
+import { isAxiosError } from "axios";
 import type { IRecipe } from "../interfaces/Recipe/IRecipe";
 import type { IIngredients } from "../interfaces/Recipe/IIngredients";
 import type { IRecipeListResponse, IRecipeSingleResponse } from "../interfaces/Response/ResponseInterfaces";
@@ -10,7 +11,7 @@ const endpointImageUpload = `${API_URL}/api/recipeimageupload`;
 /* GET ALL RECIPES */
 const getAllRecipes = async (): Promise<IRecipeListResponse> => {
     try {
-        const response = await axios.get(endpoint);
+        const response = await api.get(endpoint);
         return {
             success: true,
             data: response.data
@@ -26,7 +27,7 @@ const getAllRecipes = async (): Promise<IRecipeListResponse> => {
 /* GET BY ID */
 const getRecipeById = async (id: number): Promise<IRecipeSingleResponse> => {
     try {
-        const response = await axios.get(`${endpoint}/getbyid/${id}`);
+        const response = await api.get(`${endpoint}/getbyid/${id}`);
         return {
             success: true,
             data: response.data
@@ -42,7 +43,7 @@ const getRecipeById = async (id: number): Promise<IRecipeSingleResponse> => {
 /* GET BY TYPE */
 const getRecipesByType = async (type: string): Promise<IRecipeListResponse> => {
     try {
-        const response = await axios.get(`${endpoint}/getbytype/${encodeURIComponent(type)}`);
+        const response = await api.get(`${endpoint}/getbytype/${encodeURIComponent(type)}`);
         return { success: true, data: response.data }
     } catch {
         return { success: false, data: null }
@@ -52,7 +53,7 @@ const getRecipesByType = async (type: string): Promise<IRecipeListResponse> => {
 /* GET BY CATEGORY */
 const getRecipesByCategory = async (category: string): Promise<IRecipeListResponse> => {
     try {
-        const response = await axios.get(`${endpoint}/getbycategory/${encodeURIComponent(category)}`);
+        const response = await api.get(`${endpoint}/getbycategory/${encodeURIComponent(category)}`);
         return { success: true, data: response.data }
     } catch {
         return { success: false, data: null }
@@ -62,7 +63,7 @@ const getRecipesByCategory = async (category: string): Promise<IRecipeListRespon
 /* GET BY TITLE */
 const getRecipeByTitle = async (title: string): Promise<IRecipeListResponse> => {
     try {
-        const response = await axios.get(`${endpoint}/getbytitle/${encodeURIComponent(title)}`);
+        const response = await api.get(`${endpoint}/getbytitle/${encodeURIComponent(title)}`);
         return {
             success: true,
             data: response.data
@@ -78,7 +79,7 @@ const getRecipeByTitle = async (title: string): Promise<IRecipeListResponse> => 
 const uploadImage = async (file: File): Promise<string> => {
     const formData = new FormData();
     formData.append("file", file);
-    const response = await axios.post(endpointImageUpload, formData, {
+    const response = await api.post(endpointImageUpload, formData, {
         headers: { "Content-Type": "multipart/form-data" }
     });
     return response.data.url;
@@ -90,7 +91,7 @@ const putRecipe = async (editedRecipe: IRecipe, newImage: File | null) => {
         const recipeToSave = newImage
             ? { ...editedRecipe, image: await uploadImage(newImage) }
             : editedRecipe;
-        const response = await axios.put(endpoint, recipeToSave);
+        const response = await api.put(endpoint, recipeToSave);
         return {
             success: true,
             data: response.data
@@ -109,7 +110,7 @@ const postRecipe = async (recipe: IRecipe, image: File | null) => {
         const recipeToSave = image
             ? { ...recipe, image: await uploadImage(image) }
             : recipe;
-        const response = await axios.post(endpoint, recipeToSave);
+        const response = await api.post(endpoint, recipeToSave);
         return {
             success: true,
             data: response.data
@@ -146,10 +147,10 @@ export interface IImportResponse {
 /* IMPORT FROM URL */
 const importFromUrl = async (url: string): Promise<IImportResponse> => {
     try {
-        const response = await axios.post(`${API_URL}/api/import/url`, { url });
+        const response = await api.post(`${API_URL}/api/import/url`, { url });
         return { success: true, data: response.data };
     } catch (error) {
-        if (axios.isAxiosError(error)) {
+        if (isAxiosError(error)) {
             if (error.response?.status === 404) {
                 return { success: false, errorType: 'not_found', data: null };
             }
@@ -164,7 +165,7 @@ const importFromUrl = async (url: string): Promise<IImportResponse> => {
 /* DELETE RECIPE */
 const deleteRecipe = async (id: number) => {
     try {
-        await axios.delete(`${endpoint}/${id}`);
+        await api.delete(`${endpoint}/${id}`);
         return {
             success: true
         }
