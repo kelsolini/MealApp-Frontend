@@ -2,6 +2,7 @@ import type { IIngredients } from "./IIngredients"
 
 export interface IRecipe {
     id: number,
+    userId?: string,
     title: string,
     type: string,
     category: string,

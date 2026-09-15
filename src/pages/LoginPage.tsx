@@ -25,8 +25,6 @@ export default function LoginPage() {
         }
     };
 
-    // Alle hooks må stå ovenfor disse to linjene.
-    // Er brukeren allerede innlogget, skal login-siden aldri vises.
     if (loading) return null;
     if (user) return <Navigate to="/" replace />;
 

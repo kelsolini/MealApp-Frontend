@@ -1,11 +1,10 @@
 import { Outlet } from 'react-router-dom';
-// import { Navigate } from 'react-router-dom';
-// import { useAuth } from '../contexts/AuthContext';
+import { Navigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 
 export default function RequireAuth() {
-    // Login midlertidig deaktivert
-    // const { user, loading } = useAuth();
-    // if (loading) return null;
-    // if (!user) return <Navigate to="/login" replace />;
+    const { user, loading } = useAuth();
+    if (loading) return null;
+    if (!user) return <Navigate to="/login" replace />;
     return <Outlet />;
 }
