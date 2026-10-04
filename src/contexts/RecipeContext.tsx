@@ -16,6 +16,8 @@ export const RecipeProvider = ({ children }: Props) => {
     const [idRecipe, setIdRecipe] = useState<IRecipe | null>(null);
     const [titleRecipes, setTitleRecipes] = useState<IRecipe[]>([]);
     const [filteredRecipes, setFilteredRecipes] = useState<IRecipe[]>([]);
+    const [loadingRecipes, setLoadingRecipes] = useState(true);
+    const [loadingFiltered, setLoadingFiltered] = useState(false);
 
     useEffect(() => {
         recipeService.getAllRecipes().then(response => {
@@ -24,7 +26,7 @@ export const RecipeProvider = ({ children }: Props) => {
             } else {
                 console.error("Error when trying to get [recipes] from service");
             }
-        });
+        }).finally(() => setLoadingRecipes(false));
     }, [])
 
     /* GET BY ID */
@@ -37,25 +39,36 @@ export const RecipeProvider = ({ children }: Props) => {
             return { success: false, data: null }
         }
     }, [])
+    
     /* GET RECIPE ON TITLE */
     const fetchRecipeByTitle = useCallback(async (title: string): Promise<IRecipeListResponse> => {
-        const response = await recipeService.getRecipeByTitle(title);
-        if(response.success && response.data){
-            setTitleRecipes(response.data);
-            return { success: true, data: response.data }
-        } else {
-            return { success: false, data: null }
+        setLoadingFiltered(true);
+        try {
+            const response = await recipeService.getRecipeByTitle(title);
+            if(response.success && response.data){
+                setTitleRecipes(response.data);
+                return { success: true, data: response.data }
+            } else {
+                return { success: false, data: null }
+            }
+        } finally {
+            setLoadingFiltered(false);
         }
     }, [])
 
     /* GET RECIPES BY TYPE */
     const fetchRecipesByType = useCallback(async (type: string): Promise<IRecipeListResponse> => {
-        const response = await recipeService.getRecipesByType(type);
-        if (response.success && response.data) {
-            setFilteredRecipes(response.data);
-            return { success: true, data: response.data }
-        } else {
-            return { success: false, data: null }
+        setLoadingFiltered(true);
+        try {
+            const response = await recipeService.getRecipesByType(type);
+            if (response.success && response.data) {
+                setFilteredRecipes(response.data);
+                return { success: true, data: response.data }
+            } else {
+                return { success: false, data: null }
+            }
+        } finally {
+            setLoadingFiltered(false);
         }
     }, [])
 
@@ -95,6 +108,8 @@ export const RecipeProvider = ({ children }: Props) => {
     return (
         <RecipeContext.Provider value={{
             recipes,
+            loadingRecipes,
+            loadingFiltered,
             idRecipe,
             fetchRecipeById,
             fetchRecipeByTitle,

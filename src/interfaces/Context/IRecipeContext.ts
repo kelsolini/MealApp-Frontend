@@ -3,6 +3,8 @@ import type { IDefaultResponse, IRecipeListResponse, IRecipeSingleResponse } fro
 
 export interface IRecipeContext {
     recipes: IRecipe[];
+    loadingRecipes: boolean;
+    loadingFiltered: boolean;
     idRecipe: IRecipe | null;
     titleRecipes: IRecipe[] | [];
     filteredRecipes: IRecipe[];
